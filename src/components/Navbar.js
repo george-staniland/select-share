@@ -29,11 +29,10 @@ const NavbarDiv = styled.div`
 
 const Navbar = () => {
 
-    const [showValue, setShowValue] = useState(false);
+    const [show, setShow] = useState(false);
 
-    const launchModal = () => {
-        setShowValue(true);
-    }
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     return (
         <NavbarDiv className="bg-light">
@@ -42,11 +41,17 @@ const Navbar = () => {
 
             <div className="menu-items">
 
-                <Button variant="primary" onClick={ () => launchModal() }>
-                    Login
+                <Button 
+                    variant="primary" 
+                    onClick={ () => handleShow() }
+                >
+                    Register
                 </Button>
 
-                <ModalLoginForm showValue={showValue} />
+                <ModalLoginForm 
+                    showValue={show} 
+                    handleClose={handleClose} 
+                />
 
             </div>
 
