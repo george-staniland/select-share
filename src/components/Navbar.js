@@ -1,7 +1,10 @@
-import React from "react"
+import { React, useState } from "react"
 import styled from 'styled-components'
+import ModalLoginForm from './ModalLoginForm'
+import Button from 'react-bootstrap/Button'
+import Modal from 'react-bootstrap/Modal'
 
-const NavbarDiv = styled.div `
+const NavbarDiv = styled.div`
     padding: 20px 40px;
     display: flex;
     align-items: center;
@@ -25,30 +28,26 @@ const NavbarDiv = styled.div `
 `
 
 const Navbar = () => {
+
+    const [showValue, setShowValue] = useState(false);
+
+    const launchModal = () => {
+        setShowValue(true);
+    }
+
     return (
         <NavbarDiv className="bg-light">
 
             <h1>Select Share</h1>
-            
+
             <div className="menu-items">
 
-                <a className="item" 
-                   href=""
-                >
-                Login 
-                </a>
+                <Button variant="primary" onClick={ () => launchModal() }>
+                    Login
+                </Button>
 
-                <a className="item" 
-                   href=""
-                >
-                Sign Up 
-                </a>
+                <ModalLoginForm showValue={showValue} />
 
-                <a className="item" 
-                   href=""
-                >
-                Logout
-                </a>
             </div>
 
         </NavbarDiv>
