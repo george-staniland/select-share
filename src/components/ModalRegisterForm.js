@@ -1,11 +1,11 @@
 import { React, useState } from "react"
 import firebaseApp from "../firebase/initFirebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const ModalLoginForm = ({ handleClose, show }) => {
+const ModalRegisterForm = ({ handleClose, show }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,7 +14,7 @@ const ModalLoginForm = ({ handleClose, show }) => {
     const handleSubmit = (evt) => {
         evt.preventDefault();
 
-        signInWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
@@ -34,11 +34,11 @@ const ModalLoginForm = ({ handleClose, show }) => {
     return (
         <Modal
             show={show}
-            onHide={ () => handleClose('login') }
+            onHide={ () => handleClose('register' )}
             size="lg"
         >
             <Modal.Header closeButton>
-                <Modal.Title>Login into your account here</Modal.Title>
+                <Modal.Title>Register</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
@@ -68,8 +68,8 @@ const ModalLoginForm = ({ handleClose, show }) => {
                     </Form.Group>
 
 
-                    <Button variant="primary" type="submit" onClick={ () => handleClose('login')}>
-                        Login
+                    <Button variant="primary" type="submit" onClick={ () => handleClose('register')}>
+                        Submit
                     </Button>
 
                 </Form>
@@ -80,4 +80,4 @@ const ModalLoginForm = ({ handleClose, show }) => {
     )
 }
 
-export default ModalLoginForm
+export default ModalRegisterForm

@@ -1,57 +1,93 @@
 import { React, useState } from "react"
+import { useHistory } from 'react-router-dom'
 import styled from 'styled-components'
-import ModalLoginForm from './ModalLoginForm'
-import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import ModalRegisterForm from './ModalRegisterForm'
+import ModalLoginForm from "./ModalLoginForm"
+import { LogoutButton } from "./LogoutButton"
 
 const NavbarDiv = styled.div`
     padding: 20px 40px;
     display: flex;
     align-items: center;
-    .menu-items{
+    border: 1px solid black;
+
+    .menu-items-div{
         width: 30%;
         margin-left: auto;
         display: flex;
         justify-content: end;
     }
-    .item{
-        margin-left: 40px;
-        font-weight: 600;
-        text-decoration: none;
-        font-size: 1.6rem;
-        color: CornflowerBlue;
-        transition: all .3 ease-in-out;
-    }
-    .item:hover{
-        color: white;
+
+    button{
+        border: none;
+        background: transparent;
+        &:hover{
+            color: var(--hover-col);
+        }
     }
 `
 
 const Navbar = () => {
 
-    const [show, setShow] = useState(false);
+    const [showRegister, setShowRegister] = useState(false)
+    const [showLogin, setShowLogin ] = useState(false)
+    const history = useHistory();
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleClose = (props) => {
+        if (props === 'register'){
+            setShowRegister(false)
+        } else if ( props === 'login'){
+            setShowLogin(false)
+        }
+    }
 
+    const handleShow = (props) => {
+        if (props === 'login'){
+            setShowLogin(true)
+        } else if ( props === 'register'){
+            setShowRegister(true)
+        }
+         
+    }
+
+    const goHome = () => {
+        history.push("/");
+    }
+    
     return (
-        <NavbarDiv className="bg-light">
+        <NavbarDiv className="mx-2 mt-2">
+            
+            <button className="text-decoration-none" onClick={goHome}>
+             <h1>Select Share</h1>
+            </button>
 
-            <h1>Select Share</h1>
+            <div className="menu-items-div">
 
-            <div className="menu-items">
-
-                <Button 
-                    variant="primary" 
-                    onClick={ () => handleShow() }
+                <button 
+                    onClick={ () => handleShow('register') }
                 >
                     Register
-                </Button>
+                </button>
 
-                <ModalLoginForm 
-                    showValue={show} 
+                <ModalRegisterForm 
+                    show={showRegister} 
                     handleClose={handleClose} 
                 />
+
+                <button 
+                    onClick={ () => handleShow('login') }
+                >
+                    Login
+                </button>
+
+                <ModalLoginForm 
+                    handleClose={handleClose}
+                    show={showLogin}
+                />
+
+                
+
+                <LogoutButton/>
 
             </div>
 
