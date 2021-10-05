@@ -9,8 +9,6 @@ const NavbarDiv = styled.div`
     padding: 20px 40px;
     display: flex;
     align-items: center;
-    border: 1px solid black;
-
     .menu-items-div{
         width: 30%;
         margin-left: auto;
@@ -29,63 +27,53 @@ const NavbarDiv = styled.div`
 
 const Navbar = () => {
 
-    const [showRegister, setShowRegister] = useState(false)
-    const [showLogin, setShowLogin ] = useState(false)
     const history = useHistory();
-
-    const handleClose = (props) => {
-        if (props === 'register'){
-            setShowRegister(false)
-        } else if ( props === 'login'){
-            setShowLogin(false)
-        }
-    }
-
-    const handleShow = (props) => {
-        if (props === 'login'){
-            setShowLogin(true)
-        } else if ( props === 'register'){
-            setShowRegister(true)
-        }
-         
-    }
 
     const goHome = () => {
         history.push("/");
     }
+
+    const[showLogin, setShowLogin] = useState(false);
+    const[showRegister, setShowRegister] = useState(false);
+
+    const toggleRegister = () => {
+        setShowRegister(!showRegister);
+    }
     
+    const toggleLogin = () => {
+        setShowLogin(!showLogin);
+    }
+
     return (
         <NavbarDiv className="mx-2 mt-2">
             
             <button className="text-decoration-none" onClick={goHome}>
-             <h1>Select Share</h1>
+             <h3>Select Share</h3>
             </button>
 
             <div className="menu-items-div">
 
                 <button 
-                    onClick={ () => handleShow('register') }
+                    onClick={ () => toggleRegister() }
                 >
                     Register
                 </button>
 
                 <ModalRegisterForm 
                     show={showRegister} 
-                    handleClose={handleClose} 
+                    handleClose={toggleRegister} 
                 />
 
                 <button 
-                    onClick={ () => handleShow('login') }
+                    onClick={ () => toggleLogin() }
                 >
                     Login
                 </button>
 
                 <ModalLoginForm 
-                    handleClose={handleClose}
+                    toggleLogin={toggleLogin}
                     show={showLogin}
                 />
-
-                
 
                 <LogoutButton/>
 

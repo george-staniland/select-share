@@ -5,36 +5,34 @@ import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
-const ModalLoginForm = ({ handleClose, show }) => {
+const ModalLoginForm = ({show, toggleLogin}) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const auth = getAuth()
+
     const handleSubmit = (evt) => {
         evt.preventDefault();
 
+        // Firebase function - unsure how to make it async
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                // ...
                 console.log('signed-in!', user)
             })
             .catch((error) => {
-                const errorCode = error.code;
                 const errorMessage = error.message;
-                // ..
-                console.log(errorMessage);
+                alert('There was an error logging in!', errorMessage)
             });
 
     }
 
-
     return (
         <Modal
             show={show}
-            onHide={ () => handleClose('login') }
+            onHide={ () => toggleLogin() }
             size="lg"
         >
             <Modal.Header closeButton>
@@ -68,7 +66,7 @@ const ModalLoginForm = ({ handleClose, show }) => {
                     </Form.Group>
 
 
-                    <Button variant="primary" type="submit" onClick={ () => handleClose('login')}>
+                    <Button variant="primary" type="submit" onClick={ () => toggleLogin() }>
                         Login
                     </Button>
 
