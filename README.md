@@ -1,3 +1,8 @@
-A new app!
+# A photosharing app for photographers to get client feeback
 
-Let's learn more
+### tech stack
+* React
+* Styled-Components
+* Firebase - auth and database
+
+*still in development*
