@@ -3,6 +3,6 @@
 ### tech stack
 * React
 * Styled-Components
-* Firebase - auth and database
+* Google Firebase - Auth and Database
 
 *still in development*
