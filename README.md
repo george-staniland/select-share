@@ -1,4 +1,4 @@
-# A photosharing app for photographers to get client feeback
+# A photosharing app for photographers to get client feedback
 
 ### tech stack
 * React
